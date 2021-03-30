@@ -1,0 +1,4 @@
+Name	pres 0	phos 0	act 0	pres 1	phos 1	act 1	pres 2	phos 2	act 2	pres 3	phos 3	act 3	pres 4	phos 4	act 4	pres 5	phos 5	act 5	pres 6	phos 6	act 6
+Sln1	1	0	0	1	1	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+Ypd1	1	0	0	1	0	0	1	0	0	1	1	0	1	1	1	1	1	1	1	1	1
+Skn7	1	0	0	1	0	0	1	0	0	1	0	0	1	0	0	1	1	0	1	1	1

@@ -1,0 +1,4 @@
+Name	presence	phosphorylationORoxidation	spec_activation
+Sln1	1	1	1
+Ypd1	1	1	1
+Skn7	1	1	1

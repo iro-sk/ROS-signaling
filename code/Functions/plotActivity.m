@@ -1,4 +1,4 @@
-function plotActivity(pathway, path, nutr)
+function plotActivity(pathway, path, ROS)
 
 %written by: Julia M�nch
 %date: 2019-10-30
@@ -45,10 +45,10 @@ h.YLabel = '';
 h.YData = Name;
 
 %determine x-label
-h.XLabel = 'Nutrient presence (Glucose|Nitrogen)';
+h.XLabel = 'ROS presense';
 
 %determine x-ticks
-h.XData = nutr;
+h.XData = ROS;
 
 %determine font size
 h.FontSize = 18;

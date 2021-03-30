@@ -1,4 +1,4 @@
-function [ROS, Yap1pw, Sln1pw, Msnpw, Targets] = ...
+function [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
     reachSteadyState(Yap1pwIn, Sln1pwIn, MsnpwIn, TargetsIn, ROSLevel, path)
 
 %written by: Julia M�nch
@@ -43,7 +43,6 @@ Targets = TargetsIn;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-ROS{1,2} = ROSLevel; %determine ROS concentration (0) no, (1) high
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -56,11 +55,11 @@ iteration = 1;
 while true
     
     %save old values for comparison
-    ROSOld = ROS;
     Yap1pwOld = Yap1pw;
     Sln1pwOld = Sln1pw;
     MsnpwOld = Msnpw;
     TargetsOld = Targets;
+    ROSLevelOld = ROSLevel;
     
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -71,7 +70,7 @@ while true
     %%% Gpx3 part %%%
 
     %H2O2 Sensing and activation through oxidation of Gpx3 (Delaunay et al., 2002)
-    if ROSOld{1,2} == 1 && Yap1pwOld{1,2} == 1
+    if ROSLevelOld == 1 && Yap1pwOld{1,2} == 1
         Yap1pw{1,3} = 1;
     else
         Yap1pw{1,3} = 0;
@@ -82,7 +81,7 @@ while true
     end
     
     %Ybp1 activation by H2O2 (Veal et al, 2003)
-    if ROSOld{1,2} == 1 
+    if ROSLevelOld == 1 
         Yap1pw{2,4} = 1;   
     end
 
@@ -129,7 +128,7 @@ while true
     
     %Sln1 phosphorylation under oxidative stress
     
-    if ROSOld{1,2} == 1 && Sln1pwOld{1,2} == 1
+    if ROSLevelOld == 1 && Sln1pwOld{1,2} == 1
         Sln1pw{1,3} = 1;
     else
         Sln1pw{1,3} = 0;
@@ -172,11 +171,12 @@ while true
     %% Msn2/4 pathway %% 
     
     % Trx acts as a H2O2 sensor and turns into its active, reduced form (Boisnard et al, 2009)
-    if ROSOld{1,2} == 1 && MsnpwOld{1,2} == 1
+    if ROSLevelOld == 1 && MsnpwOld{1,2} == 1
         Msnpw{1,4} = 1;
     else
         Msnpw{1,4} = 0;
     end
+    
     
     % active Trx mediates nuclear transport of Msn2/4 transcription factor
     % (Boisnard et al, 2009) (Snf1 is inactive)
@@ -201,15 +201,15 @@ while true
     
     %% convert modifications into activity
     if iteration == 1
+        transYap1pwAct = [];
         transMsnpwAct = [];
         transSln1pwAct = [];
-        transYap1pwAct = [];
         transTargetsAct = [];
     end
     
-    [transMsnpwAct, transSln1pwAct, transYap1pwAct, transTargetsAct] = ...
-        activityConverter(MsnpwOld, Sln1pwOld, Yap1pwOld, TargetsOld, iteration,...
-        transMsnpwAct, transSln1pwAct, transYap1pwAct, transTargetsAct);
+    [transYap1pwAct, transSln1pwAct,  transMsnpwAct, transTargetsAct] = ...
+        activityConverter(Yap1pwOld, Sln1pwOld, MsnpwOld, TargetsOld, iteration,...
+        transYap1pwAct, transSln1pwAct, transMsnpwAct, transTargetsAct);
     
     %% save initial conditions and...
     if (iteration == 1)
@@ -217,7 +217,7 @@ while true
         writetable(Sln1pwOld, [path, 'Sln1pw_init.txt'], 'Delimiter', '\t');
         writetable(MsnpwOld, [path, 'Msnpw_init.txt'], 'Delimiter', '\t');
         writetable(TargetsOld, [path, 'Targets_init.txt'], 'Delimiter', '\t');
-        
+        writematrix(ROSLevelOld, [path, 'ROS_init.txt'], 'Delimiter', '\t');
     % ...create file that contains transitions (is extended after each iteration)
         transYap1pw = Yap1pwOld;
         transSln1pw = Sln1pwOld;
@@ -232,7 +232,7 @@ while true
        
     %% if states do not change anymore, steady state is reached -> break the loop
     
-    if isequal(ROSOld, ROS) && isequal(Yap1pwOld, Yap1pw) && ...
+    if isequal(ROSLevelOld, ROSLevel) && isequal(Yap1pwOld, Yap1pw) && ...
             isequal(Sln1pwOld, Sln1pw) && isequal(MsnpwOld, Msnpw) &&...
             isequal(TargetsOld, Targets)
         disp('You have reached a steady state! :)');
@@ -259,7 +259,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %save results in SS for new nutrient conditions
-writecell(ROS, [path, 'ROS_SS.txt'], 'Delimiter', '\t');
+writematrix(num2str(ROSLevel), [path, 'ROS_SS.txt'], 'Delimiter', '\t');
 writetable(Yap1pw, [path, 'Yap1pw_SS.txt'], 'Delimiter', '\t');
 writetable(Sln1pw, [path, 'Sln1pw_SS.txt'], 'Delimiter', '\t');
 writetable(Msnpw, [path, 'Msnpw_SS.txt'], 'Delimiter', '\t');
@@ -271,9 +271,10 @@ for i = 1:length(transitions)
 end
 
 %save files that contain activity transitions
-writetable(transMsnpwAct, [path, 'Activity/Transitions/', 'transPKApw.txt'], 'Delimiter', '\t');
-writetable(transSln1pwAct, [path, 'Activity/Transitions/', 'transSnf1pw.txt'], 'Delimiter', '\t');
-writetable(transYap1pwAct, [path, 'Activity/Transitions/', 'transTORpw.txt'], 'Delimiter', '\t');
+writetable(transYap1pwAct, [path, 'Activity/Transitions/', 'transYap1pw.txt'], 'Delimiter', '\t');
+writetable(transMsnpwAct, [path, 'Activity/Transitions/', 'transMsnpw.txt'], 'Delimiter', '\t');
+writetable(transSln1pwAct, [path, 'Activity/Transitions/', 'transSln1pw.txt'], 'Delimiter', '\t');
+
 writetable(transTargetsAct, [path, 'Activity/Transitions/', 'transTargets.txt'], 'Delimiter', '\t');
 
 %create file with transitions of TF factors

@@ -5,7 +5,7 @@ function plotTransitions(pathway, path)
 %description: this function depicts and saves the states' transitions when changing
 %the nutrient conditions
 %arguments:
-%   1. pathway to depict (Enzymes, PKA, Snf1, Targets, TOR)
+%   1. pathway to depict (Yap1, Sln1, Msn)
 %   2. path to save images
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

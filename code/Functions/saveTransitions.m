@@ -26,7 +26,7 @@ else
     for i = 1:length(y)
         y{i}.Properties.VariableNames{2} = ['pres ', num2str(iteration-1)];
     end
-    for i = 2:5
+    for i = 2:3
         y{i}.Properties.VariableNames{3} = ['phos ', num2str(iteration-1)];
     end
     y{2}.Properties.VariableNames{4} = ['act ', num2str(iteration-1)];

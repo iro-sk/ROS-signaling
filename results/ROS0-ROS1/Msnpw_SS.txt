@@ -1,0 +1,4 @@
+Name	presence	phosphorylationORoxidation	spec_activation
+Trx	1	0	1
+Msn	1	1	1
+Snf1	1	0	0

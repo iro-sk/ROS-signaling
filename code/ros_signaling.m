@@ -9,6 +9,8 @@ clear;
 %add path to functions
 addpath ('Functions');
 
+global ROS;
+
 %% Initialize Model %%%
 
 [Yap1pw, Sln1pw, Msnpw, Targets] = initialization ();
@@ -20,7 +22,7 @@ ROS = [0 1]; %sequence of ROS concentration
 %knockouts = {};
 
 foldername = ['ROS', num2str(ROS(1)), '-ROS', num2str(ROS(2)),'/'];
-path = ['../../results/', foldername];
+path = ['../results/', foldername];
 
 % something with the crosstalks here? what are the crosstalks?
 %path = ['Data/Validation/', foldername]; for validation knockouts
@@ -30,6 +32,7 @@ path = ['../../results/', foldername];
 % loop over ROS levels;
 
 for i = 1:length(ROS)
+    
 	ROSLevel = ROS(i);
 
 
@@ -47,7 +50,7 @@ for i = 1:length(ROS)
 %    if i > 1 
 %		[Yap1pw, Sln1pw, Msnpw, Targets] = knockout(Yap1pw, Sln1pw, Msnpw, Targets, knockouts);
 %    end
-        [Yap1pw, Sln1pw, Msnpw, Targets] = ...
+        [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
         reachSteadyState(Yap1pw, Sln1pw, Msnpw, Targets, ROSLevel, path);
 
     
@@ -66,7 +69,7 @@ for i = 1:length(pathway)
     mkdir([path, 'Figures/'], 'Heatmaps/')
     mkdir([path, 'Figures/'], 'Change/')
     
-    plotActivity(pathway{i}, path, nutr)
+    plotActivity(pathway{i}, path, ROS)
     plotTransitions(pathway{i}, path)
     barPlot(pathway{i}, path)
         
