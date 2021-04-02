@@ -1,4 +1,4 @@
-function[transYap1pwAct, transSln1pwAct, transMsnpwAct, transTargetsAct] = ...
+n function[transYap1pwAct, transSln1pwAct, transMsnpwAct, transTargetsAct] = ...
     activityConverter(Yap1pwOld, Sln1pwOld, MsnpwOld, TargetsOld, iteration,...
     transYap1pwAct, transSln1pwAct, transMsnpwAct, transTargetsAct)
 
@@ -98,15 +98,14 @@ end
 
 %% Targets %% 
 %no conversion necessary
-if iteration == 1
+ if iteration == 1
     transTargetsAct = TargetsOld;
     transTargetsAct.Properties.VariableNames{2} = ['act', num2str(iteration-1)];
-else
+ else
     append = table(TargetsOld{:,2});
     append.Properties.VariableNames{1} = ['act', num2str(iteration-1)];
     transTargetsAct = [transTargetsAct, append];
 end
-
 end
 
 

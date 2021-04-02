@@ -2,6 +2,7 @@ function plotTransitions(pathway, path)
 
 %written by: Julia M�nch
 %date: 2019-11-07
+%updated by iro @ 2021-03
 %description: this function depicts and saves the states' transitions when changing
 %the nutrient conditions
 %arguments:

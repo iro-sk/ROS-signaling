@@ -2,6 +2,7 @@ function plotActivity(pathway, path, ROS)
 
 %written by: Julia M�nch
 %date: 2019-10-30
+%updated by iro @ 2021-03
 %description: this function depicts and saves the activity of pathway
 %components in a heatmap comparing the Steady States under different nutrient conditions (glucose|nitrogen)
 %arguments:

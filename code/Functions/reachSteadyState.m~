@@ -78,8 +78,6 @@ while true
 
     if Yap1pwOld{1,3} == 1 
         Yap1pw{1,4} = 1;
-    else
-        Yap1pw{1,4} = 0;
     end
     
     %Ybp1 activation by H2O2 (Veal et al, 2003)
@@ -184,7 +182,7 @@ while true
     
     % active Trx mediates nuclear transport of Msn2/4 transcription factor
     % (Boisnard et al, 2009) (Snf1 is inactive)
-    if MsnpwOld{1,4} == 1 && MsnpwOld{2,3} == 1 && MsnpwOld{2,2} == 1
+    if MsnpwOld{1,4} == 1 && MsnpwOld{2,3} == 1 
         Msnpw{2,4} = 1;
     else
         Msnpw{2,4} = 0;

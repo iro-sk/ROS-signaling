@@ -2,11 +2,12 @@ function[transTFAct] = TFtargets(transYap1pwpwAct, transSln1pwAct, transMsnpwAct
 
 %written by: Julia M�nch
 %date: 02-12-07
+%updated by iro @ 2021-03
 %description: this function returns a single matrix containing the activity
 %transitions of all transcription factors included in the boolean model
 %arguments: 
-%   1-3. matrices including the activity transitions of the PKA, Snf1 and
-%   Tor pathays
+%   1-3. matrices including the activity transitions of the Yap1, Sln1 and
+%   Msn2/4 pathays
 %returns: matrix with transitions of TF activity
 
 TF = [string('Yap1'), string('Msn2'), string('Msn4'), string('Skn7')]';
