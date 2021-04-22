@@ -31,16 +31,12 @@ for i = 1:nKnockouts
     end
      
     % change presence/activity in corresponding table to 0
-    if isequal(j{1},Metabolites)
-        Metabolites{pos,2} = 0;
-    elseif isequal(j{1},PKApw)
-        PKApw{pos,2} = 0;
-    elseif isequal(j{1},Snf1pw)
-        Snf1pw{pos,2} = 0;
-    elseif isequal(j{1},TORpw)
-        TORpw{pos,2} = 0; 
-    elseif isequal(j{1},Enzymes)
-        Enzymes{pos,2} = 0; 
+    if isequal(j{1},Yap1pw)
+        Yap1pw{pos,2} = 0;
+    elseif isequal(j{1},Sln1pw)
+        Sln1pw{pos,2} = 0;
+    elseif isequal(j{1},Msnpw)
+        Msnpw{pos,2} = 0;
     elseif isequal(j{1},Targets)
         Targets{pos,2} = 0;
     end

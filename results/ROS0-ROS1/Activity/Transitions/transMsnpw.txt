@@ -1,4 +1,4 @@
-Var1	act0	act1	act2	act3	act4	act5	act6
-Trx	0	1	1	1	1	1	1
-Msn	0	0	1	1	1	1	1
-Snf1	0	0	0	0	0	0	0
+Var1	act0	act1	act2	act3	act4	act5	act6	act7
+Trx	0	1	1	1	1	1	1	1
+Msn	0	0	1	1	1	1	1	1
+Snf1	0	0	0	0	0	0	0	0

@@ -1,2 +1,7 @@
-Name	act0	act1	act2	act3	act4	act5	act6
-TRX	0	0	0	0	0	0	1
+Name	act0	act1	act2	act3	act4	act5	act6	act7
+TRX	0	0	0	0	0	0	1	1
+DNM1	0	0	0	0	0	0	0	0
+OLA1	0	0	0	0	0	0	0	1
+GSH1	0	0	0	0	0	0	1	1
+GLR1	0	0	0	0	0	0	1	1
+TRR1	0	0	0	0	0	0	1	1
