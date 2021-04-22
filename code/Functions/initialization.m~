@@ -28,7 +28,7 @@ phosphorylationORoxidation = zeros(length(Name),1);
 spec_activation = zeros(length(Name),1);
 Yap1pw = table(Name, presence, phosphorylationORoxidation, spec_activation);
 Yap1pw{4,4} = 1; %Crm1 is always active
-%Yap1pw{5,2} = 0; %Trx is not there yet
+Yap1pw{2,2} = 0; %Trx is not there yet
 
  
 %%% Sln1pw %%%

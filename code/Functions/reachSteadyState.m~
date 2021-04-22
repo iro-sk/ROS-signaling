@@ -1,5 +1,5 @@
 function [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
-    reachSteadyState(Yap1pwIn, Sln1pwIn, MsnpwIn, TargetsIn, ROSLevel, path)
+    reachSteadyState(Yap1pwIn, Sln1pwIn, MsnpwIn, TargetsIn, ROSLevel, path, activeCrosstalk)
 
 %written by: Julia M�nch
 %data: 2019-10-31
@@ -78,6 +78,8 @@ while true
 
     if Yap1pwOld{1,3} == 1 
         Yap1pw{1,4} = 1;
+    else
+        Yap1pw{1,4} = 0;
     end
     
     %Ybp1 activation by H2O2 (Veal et al, 2003)
@@ -111,20 +113,27 @@ while true
         Yap1pw{6,4} = 0;
     end
     
-    %active Yap1 induces Trx transcription (Izawa et al, 1999)
+    %active Yap1 induces Trx transcription (Izawa et al, 1999), same for
+    %Gsh1, Glr1 and Trr1. (references)
     if Yap1pwOld{6,4} == 1
         Targets{1,2} = 1;
+        Targets{4,2} = 1;
+        Targets{5,2} = 1;
+        Targets{6,2} = 1;
     else
         Targets{1,2} = 0;
+        Targets{4,2} = 0;
+        Targets{5,2} = 0;
+        Targets{6,2} = 0;
     end
     
-    %somehow add trx for return to inactive state?
-    
-    %% include crosstalk
-%    [ROS, Yap1pw, Snf1pw, TORpw, Targets] = ...
-%        crosstalk(MetabolitesOld, PKApwOld, Sln1pwOld, MsnpwOld, TargetsOld,...
-%        ROS, Yap1pw, Snf1pw, TORpw, Targets, activeCrosstalk);
-    
+    %Trx is expressed and appears in the Yap1 pathway (no reference, just
+    %logical)
+    if TargetsOld{1,2} == 1
+        Yap1pw{5,2} = 1;
+    else
+        Yap1pw{5,2} = 0;
+    end
       
     %% Sln1 pathway 
     
@@ -170,6 +179,16 @@ while true
         Sln1pw{3,4} = 0;
     end
     
+    %when Skn7 is activated Ola1 is expressed (ref)
+    if Sln1pwOld{3,4} == 1
+        Targets{3,2} = 1;
+    else
+        Targets{3,2} = 0;
+    end
+    
+    %additional comment on Sln1pw: SS
+    
+    
     %% Msn2/4 pathway %% 
     
     % Trx acts as a H2O2 sensor and turns into its active, reduced form (Boisnard et al, 2009)
@@ -182,7 +201,7 @@ while true
     
     % active Trx mediates nuclear transport of Msn2/4 transcription factor
     % (Boisnard et al, 2009) (Snf1 is inactive)
-    if MsnpwOld{1,4} == 1 && MsnpwOld{2,3} == 1 
+    if MsnpwOld{1,4} == 1 && MsnpwOld{2,3} == 1 && MsnpwOld{2,2} == 1
         Msnpw{2,4} = 1;
     else
         Msnpw{2,4} = 0;
@@ -195,6 +214,10 @@ while true
         Msnpw{2,3} = 1;
     end
     
+    %include crosstalk
+    [Yap1pw, Sln1pw, Msnpw, Targets] = ...
+        crosstalk(Yap1pwOld, Sln1pwOld, MsnpwOld, TargetsOld,...
+        Yap1pw, Sln1pw, Msnpw, Targets, activeCrosstalk);
     
         
         

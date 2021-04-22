@@ -1,5 +1,5 @@
 function [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
-    reachSteadyState(Yap1pwIn, Sln1pwIn, MsnpwIn, TargetsIn, ROSLevel, path)
+    reachSteadyState(Yap1pwIn, Sln1pwIn, MsnpwIn, TargetsIn, ROSLevel, path, activeCrosstalk)
 
 %written by: Julia M�nch
 %data: 2019-10-31
@@ -113,20 +113,28 @@ while true
         Yap1pw{6,4} = 0;
     end
     
-    %active Yap1 induces Trx transcription (Izawa et al, 1999)
+    %active Yap1 induces Trx transcription (Izawa et al, 1999), same for
+    %Gsh1, Glr1 and Trr1. (Grant et al, 1996; Toone et al, 2001; Lee et al,
+    %1999) 
     if Yap1pwOld{6,4} == 1
         Targets{1,2} = 1;
+        Targets{4,2} = 1;
+        Targets{5,2} = 1;
+        Targets{6,2} = 1;
     else
         Targets{1,2} = 0;
+        Targets{4,2} = 0;
+        Targets{5,2} = 0;
+        Targets{6,2} = 0;
     end
     
-    %somehow add trx for return to inactive state?
-    
-    %% include crosstalk
-%    [ROS, Yap1pw, Snf1pw, TORpw, Targets] = ...
-%        crosstalk(MetabolitesOld, PKApwOld, Sln1pwOld, MsnpwOld, TargetsOld,...
-%        ROS, Yap1pw, Snf1pw, TORpw, Targets, activeCrosstalk);
-    
+    %Trx is expressed and appears in the Yap1 pathway (no reference, just
+    %logical)
+    if TargetsOld{1,2} == 1
+        Yap1pw{5,4} = 1;
+    else
+        Yap1pw{5,4} = 0;
+    end
       
     %% Sln1 pathway 
     
@@ -172,6 +180,18 @@ while true
         Sln1pw{3,4} = 0;
     end
     
+    %when Skn7 is activated Ola1 is expressed (ref)
+    if Sln1pwOld{3,4} == 1
+        Targets{3,2} = 1;
+    else
+        Targets{3,2} = 0;
+    end
+    
+    %additional comment on Msnpw: Snf1 appears here but is not used. The
+    %purpose of this is to be available for a later use, as an input from
+    %the nutrient pathway which can be added as a crosstalk point.
+    
+    
     %% Msn2/4 pathway %% 
     
     % Trx acts as a H2O2 sensor and turns into its active, reduced form (Boisnard et al, 2009)
@@ -197,6 +217,10 @@ while true
         Msnpw{2,3} = 1;
     end
     
+    %include crosstalk
+    [Yap1pw, Sln1pw, Msnpw, Targets] = ...
+        crosstalk(Yap1pwOld, Sln1pwOld, MsnpwOld, TargetsOld,...
+        Yap1pw, Sln1pw, Msnpw, Targets, activeCrosstalk);
     
         
         

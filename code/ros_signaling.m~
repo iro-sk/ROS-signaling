@@ -30,7 +30,7 @@ path = ['../results/', foldername];
 %the Trx has been expressed and acts as a negative feedback for Yap1 ->
 %the signaling pathway enters a feedback loop. Crosstalk 2 is turned off. When on it signifies the PKA negative
 %regulation action. 
-activeCrosstalk = [0 0]; 
+activeCrosstalk = [0 1]; 
 
 %path = ['Data/Validation/', foldername]; for validation knockouts
 
