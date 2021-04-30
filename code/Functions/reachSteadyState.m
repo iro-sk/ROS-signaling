@@ -20,7 +20,7 @@ function [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
 %contains functions:
 %   1. activityConverter (converts states in vector form into integer representing activity )
 %   2. saveTransitions (saves transitions)
-%   3. TFtargets (isolates transitions of TF activity from pahtway tables)
+%   3. TFtargets (isolates transitions of TF activity from pathway tables)
 %   4. getRanks (creates ranks for target genes)
 
 

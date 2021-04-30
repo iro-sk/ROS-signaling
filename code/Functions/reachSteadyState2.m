@@ -1,15 +1,14 @@
 function [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
-    reachSteadyState(Yap1pwIn, Sln1pwIn, MsnpwIn, TargetsIn, ROSLevel, path, activeCrosstalk)
+    reachSteadyState2(count, Yap1pwIn, Sln1pwIn, MsnpwIn, TargetsIn, ROSLevel, path, activeCrosstalk)
 
 %written by: Julia M�nch
 %data: 2019-10-31
-%updated by iro @ 2021-03
-
+%updated by iro @ 2021-04
 %description: function to define the Boolean rules; loops over discrete time
 %   steps until states do not change anymore; stop looping if steady state is
 %   not reached after 100 interations; then find SS for next ROS
-%   condition; states for inital conditions before changing ROS condition, SS
-%   for specific nutrient conditions and transitions from init to SS are
+%   condition; states for inital condition before changing ROS condition, SS
+%   for specific ROS condition and transitions from init to SS are
 %   saved as txt files, activity transitions for each pathway tables are
 %   saved as txt files, simulated gene ranks are saved as txt file
 %input: 
@@ -20,7 +19,7 @@ function [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
 %contains functions:
 %   1. activityConverter (converts states in vector form into integer representing activity )
 %   2. saveTransitions (saves transitions)
-%   3. TFtargets (isolates transitions of TF activity from pahtway tables)
+%   3. TFtargets (isolates transitions of TF activity from pathway tables)
 %   4. getRanks (creates ranks for target genes)
 
 
@@ -31,18 +30,12 @@ function [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 Yap1pw = Yap1pwIn;
 Sln1pw = Sln1pwIn;
 Msnpw = MsnpwIn;
 Targets = TargetsIn;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% ROS concentration%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -62,6 +55,8 @@ while true
     ROSLevelOld = ROSLevel;
     
     
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     %% Yap1 pathway %%%
@@ -114,7 +109,8 @@ while true
     end
     
     %active Yap1 induces Trx transcription (Izawa et al, 1999), same for
-    %Gsh1, Glr1 and Trr1. (references)
+    %Gsh1, Glr1 and Trr1. (Grant et al, 1996; Toone et al, 2001; Lee et al,
+    %1999) 
     if Yap1pwOld{6,4} == 1
         Targets{1,2} = 1;
         Targets{4,2} = 1;
@@ -130,9 +126,9 @@ while true
     %Trx is expressed and appears in the Yap1 pathway (no reference, just
     %logical)
     if TargetsOld{1,2} == 1
-        Yap1pw{5,2} = 1;
+        Yap1pw{5,4} = 1;
     else
-        Yap1pw{5,2} = 0;
+        Yap1pw{5,4} = 0;
     end
       
     %% Sln1 pathway 
@@ -186,7 +182,9 @@ while true
         Targets{3,2} = 0;
     end
     
-    %additional comment on Sln1pw: SS
+    %additional comment on Msnpw: Snf1 appears here but is not used. The
+    %purpose of this is to be available for a later use, as an input from
+    %the nutrient pathway which can be added as a crosstalk point.
     
     
     %% Msn2/4 pathway %% 
@@ -219,10 +217,8 @@ while true
         crosstalk(Yap1pwOld, Sln1pwOld, MsnpwOld, TargetsOld,...
         Yap1pw, Sln1pw, Msnpw, Targets, activeCrosstalk);
     
-        
-        
     %% create table for transcription factors
-    
+        
     
     %% convert modifications into activity
     if iteration == 1
@@ -235,6 +231,7 @@ while true
     [transYap1pwAct, transSln1pwAct,  transMsnpwAct, transTargetsAct] = ...
         activityConverter(Yap1pwOld, Sln1pwOld, MsnpwOld, TargetsOld, iteration,...
         transYap1pwAct, transSln1pwAct, transMsnpwAct, transTargetsAct);
+    
     
     %% save initial conditions and...
     if (iteration == 1)
@@ -311,4 +308,4 @@ writetable(transTargetsAct, [path, 'Activity/Transitions/', 'transTargets.txt'],
 %model = ecModel_batch;
 %[ranks] = getRanks(transTFAct);
 %writetable(ranks, [path, 'enzRanks.txt'], 'Delimiter', '\t');
-%end
+end
