@@ -1,0 +1,7 @@
+Name	presence	phosphorylationORoxidation	spec_activation
+Gpx3	1	1	1
+Ybp1	1	0	1
+Pse1	1	0	1
+Crm1	1	0	0
+Trx1	1	0	1
+Yap1	1	1	1

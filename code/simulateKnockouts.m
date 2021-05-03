@@ -63,7 +63,7 @@ activeCrosstalk = [0 0];
 
 for i = 1:length(knockouts)
     
-	ROSLevel = ROS(i);
+	ROSLevel = ROS(2);
        
     %create folders if they don't already exist
     mkdir(path,[num2str(i),'/'])
@@ -72,7 +72,7 @@ for i = 1:length(knockouts)
     mkdir(path, 'Activity/')
     mkdir([path, 'Activity/'], ['Transitions/',num2str(i),'/'])
     
-	disp(['ROS level: ', num2str(ROS(i))]);
+	disp(['ROS level: ', num2str(ROS(1))]);
     
     %run the boolean model to create txt files
     

@@ -1,0 +1,7 @@
+Name	act0	act1	act2	act3	act4	act5	act6	act7
+TRX	1	1	1	1	1	0	0	0
+DNM1	0	0	0	0	0	0	0	0
+OLA1	1	1	1	1	1	1	1	0
+GSH1	1	1	1	1	1	0	0	0
+GLR1	1	1	1	1	1	0	0	0
+TRR1	1	1	1	1	1	0	0	0

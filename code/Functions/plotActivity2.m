@@ -1,4 +1,4 @@
-function plotActivity(pathway, path, ROS, knockouts)
+function plotActivity2(pathway, path, ROS, knockouts)
 
 %written by: Julia M�nch
 %date: 2019-10-30

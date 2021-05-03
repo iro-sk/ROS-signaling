@@ -24,7 +24,13 @@ ROS = [0 1]; %sequence of ROS concentration
 foldername = ['ROS', num2str(ROS(2)), '-ROS', num2str(ROS(1)),'/'];
 path = ['../results/', foldername];
 
-% something with the crosstalks here? what are the crosstalks?
+%manually change crosstalks (0 turns off, 1 turns on -> when both
+%crosstalks are off the models work as described. When crosstalk 1 turns on
+%the Trx has been expressed and acts as a negative feedback for Yap1 ->
+%the signaling pathway enters a feedback loop. Crosstalk 2 is turned off. When on it signifies the PKA negative
+%regulation action. 
+activeCrosstalk = [0 0]; 
+
 %path = ['Data/Validation/', foldername]; for validation knockouts
 
 %%
@@ -51,7 +57,7 @@ for i = length(ROS):-1:1
 %		[Yap1pw, Sln1pw, Msnpw, Targets] = knockout(Yap1pw, Sln1pw, Msnpw, Targets, knockouts);
 %    end
         [ROSLevel, Yap1pw, Sln1pw, Msnpw, Targets] = ...
-        reachSteadyState(Yap1pw, Sln1pw, Msnpw, Targets, ROSLevel, path);
+        reachSteadyState(Yap1pw, Sln1pw, Msnpw, Targets, ROSLevel, path, activeCrosstalk);
 
     
 end
@@ -74,8 +80,3 @@ for i = 1:length(pathway)
     barPlot(pathway{i}, path)
         
 end
-
-
-
-
-

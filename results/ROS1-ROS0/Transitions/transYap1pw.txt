@@ -1,0 +1,7 @@
+Name	pres 0	phosphorylationORoxidation_left	spec_activation_left	pres 1	phosphorylationORoxidation_right	spec_activation_right	pres 2	phosphorylationORoxidation_left_1	spec_activation_left_1	pres 3	phosphorylationORoxidation_right_1	spec_activation_right_1	pres 4	phosphorylationORoxidation_left_2	spec_activation_left_2	pres 5	phosphorylationORoxidation_right_2	spec_activation_right_2	pres 6	phosphorylationORoxidation_left_3	spec_activation_left_3	pres 7	phosphorylationORoxidation_right_3	spec_activation_right_3
+Gpx3	1	1	1	1	0	1	1	0	0	1	0	0	1	0	0	1	0	0	1	0	0	1	0	0
+Ybp1	1	0	1	1	0	0	1	0	0	1	0	0	1	0	0	1	0	0	1	0	0	1	0	0
+Pse1	1	0	1	1	0	1	1	0	1	1	0	0	1	0	0	1	0	0	1	0	0	1	0	0
+Crm1	1	0	0	1	0	0	1	0	1	1	0	1	1	0	1	1	0	1	1	0	1	1	0	1
+Trx1	1	0	1	1	0	1	1	0	1	1	0	1	1	0	1	1	0	1	1	0	0	1	0	0
+Yap1	1	1	1	1	1	1	1	0	1	1	0	1	1	0	0	1	0	0	1	0	0	1	0	0

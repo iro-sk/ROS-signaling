@@ -1,0 +1,7 @@
+Name	pres 0	pres 1	pres 2	pres 3	pres 4	pres 5	pres 6	pres 7
+TRX	1	1	1	1	1	0	0	0
+DNM1	0	0	0	0	0	0	0	0
+OLA1	1	1	1	1	1	1	1	0
+GSH1	1	1	1	1	1	0	0	0
+GLR1	1	1	1	1	1	0	0	0
+TRR1	1	1	1	1	1	0	0	0
