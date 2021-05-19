@@ -16,7 +16,7 @@ function [Yap1pw, Sln1pw, Msnpw, Targets] = initialization ()
 
 
 %%% Target genes %%
-Name = ["TRX", "DNM1", "OLA1", "GSH1", "GLR1", "TRR1"]';
+Name = ["TRX", "DNM1", "OLA1", "GSH1", "GLR1", "TRR1", "CTT1"]';
 activity = zeros(length(Name),1);
 Targets = table(Name, activity);
 
@@ -46,5 +46,5 @@ phosphorylationORoxidation = zeros(length(Name),1);
 spec_activation = zeros(length(Name),1);
 Msnpw = table(Name, presence, phosphorylationORoxidation, spec_activation);
 Msnpw{2,3} = 1; %Msn2/4 is phosphorylated
-%Msnpw{3,4} = 1; % to switch on Snf1 switch
+Msnpw{3,4} = 1; % to switch on Snf1 switch
 end

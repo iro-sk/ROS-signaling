@@ -113,9 +113,8 @@ while true
         Yap1pw{6,4} = 0;
     end
     
-    %active Yap1 induces Trx transcription (Izawa et al, 1999), same for
-    %Gsh1, Glr1 and Trr1. (Grant et al, 1996; Toone et al, 2001; Lee et al,
-    %1999) 
+    %active Yap1 induces Trx2 transcription (MacIsaac KD, et al., 2006; Hu Z, et al., 2007), same for
+    %Gsh1, Glr1 and Trr1. (MacIsaac KD, et al., 2006; Grant et al, 1996; Toone et al, 2001;) 
     if Yap1pwOld{6,4} == 1
         Targets{1,2} = 1;
         Targets{4,2} = 1;
@@ -180,11 +179,13 @@ while true
         Sln1pw{3,4} = 0;
     end
     
-    %when Skn7 is activated Ola1 is expressed (ref)
-    if Sln1pwOld{3,4} == 1
+    %when Skn7 is activated Ola1 and Dnmt1 is expressed (ref)
+    if Sln1pwOld{3,4} == 1 
         Targets{3,2} = 1;
+        Targets{2,2} = 1;
     else
         Targets{3,2} = 0;
+        Targets{2,2} = 0;
     end
     
     %additional comment on Msnpw: Snf1 appears here but is not used. The
@@ -215,6 +216,13 @@ while true
         Msnpw{2,3} = 0;
     else
         Msnpw{2,3} = 1;
+    end
+    
+    %CTT1 is a target gene of Msn2 (Nakazawa et al, 2018)
+    if MsnpwOld{2,4} == 1 && MsnpwOld{2,2} == 1
+        Targets{7,2} = 1;
+    else
+        Targets{7,2} = 0;
     end
     
     %include crosstalk
