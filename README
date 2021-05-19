@@ -1,0 +1,6 @@
+Boolean network of ROS signaling pathways Yap1, Sln1 and Msn2/4 in Saccharomyces cerevisiae.
+Download the folder and run the ros_signaling.m in matlab (made in version 9.7.0.1586710 (R2019b)) with the indicated directory structure. 
+You will see the model output for change of ROS input from 0 to 1.
+Run the reverse_ros_signaling.m to see how the system recovers from 1 to 0 ROS.
+made by iro skopa @ 2021 as part of the diploma thesis project, MSc Systems biology & Genomics, University of Gothenburg, Sweden.
+The work was done in the Cvijoviclab, the Systems Biology Research Group at the Department of Mathematical Sciences, University of Gothenburg.
