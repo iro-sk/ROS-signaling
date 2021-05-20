@@ -1,7 +1,8 @@
 Name	activity
 TRX	1
-DNM1	0
+DNM1	1
 OLA1	1
 GSH1	1
 GLR1	1
 TRR1	1
+CTT1	1

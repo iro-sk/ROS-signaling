@@ -46,5 +46,5 @@ phosphorylationORoxidation = zeros(length(Name),1);
 spec_activation = zeros(length(Name),1);
 Msnpw = table(Name, presence, phosphorylationORoxidation, spec_activation);
 Msnpw{2,3} = 1; %Msn2/4 is phosphorylated
-Msnpw{3,4} = 1; % to switch on Snf1 switch
+%Msnpw{3,4} = 1; % to switch on Snf1 switch
 end
